@@ -10,13 +10,15 @@ Crude takes HTTP seriously and expects **proxies** to provide enrichment such as
 
 ## Cross-Ecosystem Shape
 
-Language-centric repos are expected to converge on a familiar structure:
+Language-centric repos are expected to converge on a familiar set of components (names and layout may vary across ecosystems; e.g. a TypeScript package might be named crude-server while Swift might use CrudeServer):
 
-- `core/`: shared domain logic and primitives
-- `client/`: client-side implementation of the protocol
-- `server/`: server-side implementation of the protocol
-- `examples/`: runnable examples, including spec-defined debug collections where applicable
+- Core primitives and shared domain logic
+- Client implementation of the protocol
+- Server implementation of the protocol
+- Examples and conformance fixtures (including spec-defined debug collections where applicable)
 
 ## Docs Note
 
 `crude-docs` is human-targeted documentation. This `crude-context` repo can contain denser, agent-oriented notes, but should still follow progressive disclosure (see `docs/maintaining-context.md`).
+
+Related design notes: `design/plugin-system.md`.
