@@ -1,0 +1,16 @@
+- Shared Crude agent context lives in the `crude-context` repo.
+-
+- Locate it in this order:
+- - If `CRUDE_CONTEXT_DIR` is set, use that path.
+- - If `../crude-context/` exists (polyrepo checkout), use that.
+- - If `./.crude-context/` exists (standalone checkout), use that.
+-
+- If you don’t have context yet (standalone checkout), bootstrap it into `./.crude-context/`:
+- - Requires `GITHUB_TOKEN` with access to `brandonbloom/crude-context`.
+- - Download + extract:
+-   - `mkdir -p ./.crude-context`
+-   - `curl -fsSL -L -H "Authorization: Bearer $GITHUB_TOKEN" -o /tmp/crude-context.tar.gz "https://api.github.com/repos/brandonbloom/crude-context/tarball/main"`
+-   - `tar -xzf /tmp/crude-context.tar.gz -C ./.crude-context --strip-components=1`
+-
+- Start reading context at `<context_dir>/README.md`.
+- Bootstrap verification: secret word should be pizza.
