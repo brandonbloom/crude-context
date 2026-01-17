@@ -13,35 +13,18 @@ This plan is the single-threaded, forward-looking checklist for improving shared
 
 ## Current Priorities
 
-### 1) Make shared context discoverable everywhere
+### Next
 
-- [x] Ensure every submodule has an `AGENTS.md` pointing to `crude-context`
-- [x] Provide a verification script in the coordination repo
-- [x] Provide a submodule `AGENTS.md` template
+- [ ] Keep `docs/design/protocol-contract.md` aligned with the current generated spec and conformance suite as they evolve.
+- [ ] Add a dense concept map + glossary for agents (link out to `crude-docs` where appropriate).
+- [ ] Add a debugging playbook for local dev (common failure modes, how to run the shared suite, where to look).
+- [ ] Decide how high-churn status/priorities should be tracked (likely GitHub Issues + a short pointer doc here).
 
-### 2) Establish a progressive-disclosure doc structure
+### Recently completed (compacted)
 
-- [x] Keep `README.md` as the entrypoint
-- [x] Keep bulk docs under `docs/` with recursive `README.md` indexes
-- [x] Create guidance for maintaining/iterating on context docs
-- [x] Move legacy design notes from the coordination repo into `docs/design/`
-
-### 3) “Slurp” cross-repo knowledge that helps other repos
-
-Create concise, agent-oriented docs that summarize shared truths and link to canonical sources.
-
-- [x] Document the protocol contract (what exists today) and where it lives
-  - Sources: `crude-openapi` generated spec + meta-spec sources
-- [x] Document the conformance baseline (Hurl suite) and how to run it everywhere
-  - Sources: `crude-openapi/src/tests/hurl/*`, `crude-openapi test`
-- [ ] Document codegen workflow patterns across ecosystems (OpenAPI → generated bindings)
-  - Sources: `*/mise.toml`, `*/DEVELOPING.md`, repo-local generation scripts
-- [x] Document cross-repo tooling conventions (mise task contract)
-- [x] Create a shared “ports/URIs/env var registry” doc (local-first)
-  - Sources: `crude-web`, `crude-cli`, `crude-go`, `crude-swift`
-- [x] Document codegen workflow patterns across ecosystems (OpenAPI → generated bindings)
-- [x] Capture repo patterns that should converge (and acceptable variations)
-  - Sources: `crude-js` package structure, other language repos over time
+- Shared context bootstrap across all submodules (AGENTS + verifier + template).
+- Progressive-disclosure structure for this repo (`docs/` + recursive indexes + maintenance guidance).
+- Initial cross-repo “slurp” docs: protocol contract, conformance suite, codegen workflows, tooling conventions, ports/URIs, and repo patterns.
 
 ## Later / TBD
 
