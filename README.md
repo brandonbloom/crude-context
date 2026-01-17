@@ -39,3 +39,4 @@ These repos are expected to converge on a similar shape (e.g. `core/`, `client/`
 
 - Architecture overview: `docs/architecture.md`
 - How to iterate on this repo’s docs: `docs/maintaining-context.md`
+- Current work plan for this repo: `PLAN.md`

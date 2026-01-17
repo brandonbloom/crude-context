@@ -6,5 +6,5 @@ Start here:
 
 - Architecture overview: `architecture.md`
 - How to maintain this context: `maintaining-context.md`
+- Cross-repo tooling conventions: `tooling.md`
 - Design notes: `design/README.md`
-
