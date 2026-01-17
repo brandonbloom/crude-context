@@ -40,7 +40,7 @@ Create concise, agent-oriented docs that summarize shared truths and link to can
 - [x] Create a shared “ports/URIs/env var registry” doc (local-first)
   - Sources: `crude-web`, `crude-cli`, `crude-go`, `crude-swift`
 - [x] Document codegen workflow patterns across ecosystems (OpenAPI → generated bindings)
-- [ ] Capture repo patterns that should converge (and acceptable variations)
+- [x] Capture repo patterns that should converge (and acceptable variations)
   - Sources: `crude-js` package structure, other language repos over time
 
 ## Later / TBD
