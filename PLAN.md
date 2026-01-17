@@ -37,8 +37,9 @@ Create concise, agent-oriented docs that summarize shared truths and link to can
 - [ ] Document codegen workflow patterns across ecosystems (OpenAPI → generated bindings)
   - Sources: `*/mise.toml`, `*/DEVELOPING.md`, repo-local generation scripts
 - [x] Document cross-repo tooling conventions (mise task contract)
-- [ ] Create a shared “ports/URIs/env var registry” doc (local-first)
+- [x] Create a shared “ports/URIs/env var registry” doc (local-first)
   - Sources: `crude-web`, `crude-cli`, `crude-go`, `crude-swift`
+- [x] Document codegen workflow patterns across ecosystems (OpenAPI → generated bindings)
 - [ ] Capture repo patterns that should converge (and acceptable variations)
   - Sources: `crude-js` package structure, other language repos over time
 

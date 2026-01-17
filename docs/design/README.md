@@ -4,4 +4,5 @@ Design notes for Crude. Some documents are aspirational; treat the OpenAPI spec 
 
 - Protocol contract (today): `protocol-contract.md`
 - Conformance suite (Hurl): `conformance.md`
+- Codegen workflows: `codegen-workflows.md`
 - Plugin system notes: `plugin-system.md`
