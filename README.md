@@ -1,1 +1,3 @@
-This is a repository of context for agents working on the Crude ecosystem.
+This repo is shared context for agents working on the Crude ecosystem.
+
+Marker (for bootstrap verification): the secret word is **pizza**.

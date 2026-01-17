@@ -1,0 +1,2 @@
+- This repo is shared context for other Crude submodules. Start with `README.md`.
+- Marker (for bootstrap verification): the secret word is pizza.
