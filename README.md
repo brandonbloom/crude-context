@@ -37,8 +37,22 @@ These repos are expected to converge on a similar shape (e.g. `core/`, `client/`
 
 ## Where To Go Next
 
-- Architecture overview: `docs/architecture.md`
-- Multi-language implementation philosophy: `docs/design/multi-language-implementations.md`
-- Versioning and stability: `docs/versioning-and-stability.md`
-- How to iterate on this repo’s docs: `docs/maintaining-context.md`
-- Current work plan for this repo: `PLAN.md`
+### Architecture overview (`docs/architecture.md`)
+
+Read this when you want a quick mental model of the Crude ecosystem: what the major components are, how they relate, and what “Crude” means at a systems level.
+
+### Multi-language implementation philosophy (`docs/design/multi-language-implementations.md`)
+
+Read this when you’re implementing or reviewing a language SDK/server and want guidance on how to map the protocol into idiomatic, maintainable APIs across different ecosystems (including optional capability patterns).
+
+### Versioning and stability (`docs/versioning-and-stability.md`)
+
+Read this when you’re publishing artifacts or consuming Crude components and need to understand today’s “unstable by default” stance, plus which versioning conventions we follow per ecosystem (SemVer, Go module versioning, CalVer for apps, etc.).
+
+### Maintaining context (`docs/maintaining-context.md`)
+
+Read this when you’re contributing to `crude-context`: how docs are organized, how to keep them concise, and how to evolve shared context without letting it sprawl.
+
+### Context work plan (`PLAN.md`)
+
+Read this when you want to see what’s next for `crude-context` itself (the single-threaded checklist for improving shared agent context across the ecosystem).
