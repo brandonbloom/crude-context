@@ -18,12 +18,14 @@ This document describes conventions that should converge across Crude repos, plu
 
 - When repos interact across language boundaries, prefer the OpenAPI HTTP interface over importing internals from another repo.
 - Generated OpenAPI artifacts should be reproducible and not hand-edited.
+- Prefer a two-layer split in each ecosystem: a protocol/DTO layer generated from OpenAPI, and a separate idiomatic layer that plugin authors implement and higher-level clients use.
 
 ### Idiomatic internals + dependency injection
 
 - Server packages should expose idiomatic Domain/Collection/Element (or equivalent) abstractions for that language.
 - HTTP routing/adapters should depend on those abstractions via injection (a static single-domain configuration should be the easy path).
 - Optional features should be modeled idiomatically (small optional interfaces, optional members, capability checks), not by forcing every implementation to “fake” the full surface.
+  - When protocol DTO names collide with idiomatic types, prefer a `*Model` naming convention for protocol DTOs by default.
 
 ### Conformance mindset
 

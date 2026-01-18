@@ -19,7 +19,18 @@ This document summarizes the common “shape” of code generation across Crude 
 - `--openapi-version`: typically 3.0.0 or 3.1.0
 - `--server-url`: one or more base URLs for clients
 - `--root-domain`, `--domains`: include desired namespace shapes (unscoped `/collections/...` vs scoped `/domains/{domain}/...`)
-- `--erase-generics`: choose whether to erase/instantiate generic schemas for simpler downstream codegen
+- `--erase-generics`: choose whether to erase/instantiate generic schemas for simpler downstream codegen (see below)
+
+## Generics and generator compatibility
+
+Some parts of the Crude spec may use JSON Schema 2020-12 features (for example `$dynamicRef` / `$dynamicAnchor`) to express “generic” shapes like `Page<T>`. This keeps the spec honest and reusable, but not all OpenAPI generators support these patterns well.
+
+Recommended workflow:
+
+- Prefer keeping the OpenAPI/JSON Schema “true” (it’s the interoperability contract).
+- If the selected generator cannot handle dynamic-ref generics, use a **target-specific generation mode** (for example `--erase-generics`) that produces codegen-friendly schemas/types.
+- Document the choice in the target repo (what mode is used, and why).
+- Keep conformance stable: generation modes must not change observable wire semantics (only how a target represents the shapes).
 
 ## Repo examples (current)
 

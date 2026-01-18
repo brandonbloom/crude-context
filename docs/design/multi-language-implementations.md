@@ -26,29 +26,52 @@ Typical shape (names vary by language):
 
 The HTTP server layer should be primarily an adapter: parse URL/method/headers, call these abstractions, and map results to protocol responses.
 
+## Recommended two-layer architecture: protocol layer + idiomatic layer
+
+Most ecosystems should converge on a **two-layer** pattern:
+
+1) **Protocol / DTO layer** (HTTP-idiomatic, minimal runtime)
+   - **Generated from OpenAPI** (or a deterministic transform of it).
+   - “Awkward/low-level is fine”: it’s effectively “curl in <language>”, and it matches the OpenAPI boundary.
+   - Should be reproducible; avoid hand-written drift.
+   - Applies to both server adapters (request/response mapping) and HTTP-backed clients (protocol client).
+
+2) **Idiomatic layer** (ergonomic, plugin-author facing)
+   - Domain model interfaces (`Domain` / `Collection` / `Element`, or language equivalents) and helpers.
+   - This is where ecosystems invest in ergonomics (query builders, filter DSLs, convenience methods, capability checks).
+   - Should be implementable by both:
+     - servers/plugins (in-process implementations), and
+     - clients (HTTP-backed implementations that delegate to the protocol client).
+
+If you’re unsure where something belongs: default to “protocol layer” if it’s about *wire shapes / HTTP semantics*, and “idiomatic layer” if it’s about *developer ergonomics / in-process modeling*.
+
 ## Per-language bindings: recommended layering
 
 Most language repos should converge on a similar internal layering, even if names differ:
 
-1) **Generated protocol types** (DTOs)
+1) **Generated protocol types** (DTOs, “protocol layer”)
    - Types generated from OpenAPI (or hand-written equivalents).
    - These should be “dumb” data shapes: no I/O, minimal behavior.
+   - Prefer checking these into the repo when generation is not universally available in consumer environments.
 
-2) **Core model interfaces** (the idiomatic server surface)
+2) **Protocol client and/or server adapter glue** (still “protocol layer”)
+   - For clients: a low-level HTTP client that is directly typed by the generated protocol types.
+   - For servers: router/handler glue that maps HTTP/OpenAPI concerns to idiomatic interfaces.
+
+3) **Core model interfaces** (the idiomatic layer)
    - `Domain` / `Collection` / `Element` interfaces (or protocols / traits).
    - Optional capabilities expressed idiomatically (see below).
    - These are what plugin authors implement.
    - Keep these interfaces as “pure” as practical, but accept that some protocol-adjacent concepts (like `Format`) are part of the domain model because they drive content negotiation.
 
-3) **Server adapter**
-   - HTTP router + OpenAPI glue that turns requests into calls to the core interfaces.
-   - Owns protocol concerns: path parsing, pagination params, `Accept` handling, response encoding, Problem Details.
-
-4) **Client bindings**
-   - Resource-style wrappers around HTTP (`DomainResource`, `CollectionResource`, etc.), or a generated client plus thin helpers.
+4) **Idiomatic clients / engines** (the idiomatic layer)
+   - Higher-level clients that expose idiomatic `Domain`/`Collection`/`Element` (or equivalents) to consumers.
+   - Can be backed by:
+     - an in-process implementation (useful for testing and composition), or
+     - the protocol client (HTTP-backed, “remote engine”).
    - Should tolerate partial implementations (progressive enhancement).
 
-The key rule: plugin authors should spend most of their time implementing (2), not wiring (3).
+The key rule: plugin authors should spend most of their time implementing the **idiomatic interfaces** (3), not wiring HTTP/protocol glue (2).
 
 ### DTO separation (recommended)
 
@@ -56,6 +79,15 @@ Generated OpenAPI DTOs should be kept separate from the idiomatic interfaces so 
 
 - Expect some O(N) copying/mapping at the server adapter boundary.
 - Prefer central “mapping” helpers rather than scattering DTO construction throughout plugin code.
+
+### Naming: avoid protocol/idiomatic collisions (recommended)
+
+Protocol DTO names frequently collide with idiomatic types (`Domain`, `Collection`, `Element`, etc.). Prefer a consistent convention:
+
+- Use `*Model` (or language equivalent) for protocol DTOs: `DomainModel`, `CollectionModel`, `ElementModel`, `PageModel`, etc.
+- Reserve the short names (`Domain`, `Collection`, `Element`) for idiomatic interfaces.
+
+Allow exceptions when the protocol shape is also the idiomatic value (for example, `ProblemDetails` that is “just JSON”), but default to `*Model` first and add aliases later only if there’s clear value.
 
 ## Dependency injection: servers take domains (not globals)
 
@@ -227,6 +259,46 @@ Common pattern:
 - Go “universe” domain pattern shows up in: `crude-go/core/universe.go`
 - Go HTTP/Problem Details mapping patterns show up in: `crude-go/internal/server/errors.go`
 - JS/TS optional handler surface shows up in: `crude-js/packages/crude-server/src/index.ts`
+
+## JS/TS example (protocol types + protocol client + idiomatic layer)
+
+This is an example of how the two-layer pattern can look in a JS/TS ecosystem; the same shape generalizes to other languages/tooling.
+
+**Protocol / DTO layer (generated, reproducible)**
+
+- Generate protocol types with `openapi-typescript` (zero runtime) and check the generated typings into the repo.
+- Build a low-level protocol client with `openapi-fetch`, typed by those generated protocol types.
+
+**Idiomatic layer (ergonomic, reusable)**
+
+- Define idiomatic interfaces (`Domain` / `Collection` / `Element`) and capability checks.
+- Provide an HTTP-backed implementation (an “engine”) that delegates to the protocol client.
+- Optionally provide an in-process implementation for tests/composition.
+
+Minimal sketch:
+
+```ts
+// protocol/types.ts (generated; checked in)
+export type { paths as ProtocolPaths } from "./generated/openapi";
+
+// protocol/client.ts (low-level, “curl in TS”)
+import createClient from "openapi-fetch";
+import type { ProtocolPaths } from "./types";
+export const protocol = createClient<ProtocolPaths>({ baseUrl: process.env.CRUDE_URI });
+
+// idiomatic/http-engine.ts (ergonomic layer backed by protocol client)
+export function createHttpEngine(protocolClient: typeof protocol): Engine { /* ... */ }
+```
+
+## OpenAPI “generics” and codegen compatibility
+
+Some OpenAPI/JSON Schema specs express “generics” (for example `Page<T>`) using JSON Schema 2020-12 features like `$dynamicRef` / `$dynamicAnchor`. Not all generators handle these well.
+
+Recommended approach:
+
+- Keep the spec “true” where possible (the OpenAPI/JSON Schema is the source of interoperability).
+- If a chosen generator cannot handle dynamic-ref generics, allow a **target-specific generation mode** (for example, “erase generics” / “instantiate generics”) that produces codegen-friendly schemas/types.
+- Document the decision in the target repo (what mode is used and why), and keep protocol conformance stable (the mode must not change observable wire behavior).
 
 ## Open questions (to resolve in specs + tests)
 
