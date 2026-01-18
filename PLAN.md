@@ -16,7 +16,7 @@ This plan is the single-threaded, forward-looking checklist for improving shared
 ### Next
 
 - [ ] Keep `docs/design/protocol-contract.md` aligned with the current generated spec and conformance suite as they evolve.
-- [ ] Add a dense concept map + glossary for agents (link out to `crude-docs` where appropriate).
+- [x] Add a dense concept map + glossary for agents (link out to `crude-docs` where appropriate).
 - [ ] Add a debugging playbook for local dev (common failure modes, how to run the shared suite, where to look).
 - [ ] Decide how high-churn status/priorities should be tracked (likely GitHub Issues + a short pointer doc here).
 
