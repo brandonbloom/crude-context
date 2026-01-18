@@ -8,6 +8,17 @@ This document summarizes the **current** Crude HTTP/OpenAPI contract as implemen
 - Meta-spec sources: `crude-openapi/src/spec/types.ts`, `crude-openapi/src/spec/api.ts`
 - Conformance suite: `crude-openapi/src/tests/hurl/*.hurl` (run via `crude-openapi test`)
 
+## Spec shapes (“slices”) and progressive enhancement
+
+The OpenAPI generator can emit different *shapes* of the API surface to support progressive enhancement and simpler plugin servers.
+
+Today this is primarily controlled by flags to `crude-openapi generate`:
+
+- `--domains` / `--no-domains`: include/exclude the domain-scoped `/domains/{domain}/...` surface
+- `--root-domain`: include the unscoped `/collections/...` surface (and, when `--domains` is enabled, root-domain endpoints like `/organizer` and `/search`)
+
+When working across repos, treat the generated spec + Hurl suite as the contract for the shape you’re targeting.
+
 ## Resource model
 
 - Domains → collections → elements.
@@ -60,4 +71,3 @@ Some docs in `crude-docs` describe the broader vision (“CRUD engine”, proper
 1) `crude-openapi/build/spec.json` (what’s defined)
 2) `crude-openapi/src/tests/hurl/*.hurl` (what’s required by tests)
 3) Implementation docs per repo (`DEVELOPING.md`)
-

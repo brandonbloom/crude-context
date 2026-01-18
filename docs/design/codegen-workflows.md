@@ -18,7 +18,7 @@ This document summarizes the common “shape” of code generation across Crude 
 
 - `--openapi-version`: typically 3.0.0 or 3.1.0
 - `--server-url`: one or more base URLs for clients
-- `--root-domain`, `--domains`: include desired namespace shapes
+- `--root-domain`, `--domains`: include desired namespace shapes (unscoped `/collections/...` vs scoped `/domains/{domain}/...`)
 - `--erase-generics`: choose whether to erase/instantiate generic schemas for simpler downstream codegen
 
 ## Repo examples (current)
@@ -45,4 +45,3 @@ This document summarizes the common “shape” of code generation across Crude 
 2) Rebuild/re-run `crude-openapi` to produce updated OpenAPI JSON.
 3) Update downstream repos by re-running their `mise run generate` (or equivalent).
 4) Run the shared conformance suite against implementations (`crude-openapi test --server ...`).
-

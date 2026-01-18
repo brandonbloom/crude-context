@@ -5,6 +5,16 @@ This document captures current thinking about Crude’s plugin system. Some sect
 ## System Context
 A toolkit for building CRUD applications with unified primitives that provide access to collections of elements as web resources. The platform will primarily run in web browsers, with local proxies for accessing local machine resources, and alternative interfaces like CLI tools and virtual filesystems.
 
+## Progressive enhancement and “enriching proxies”
+
+Not every plugin server is expected to implement the full Crude surface area.
+
+- Plugins may implement only a slice of the protocol that matches their capability (for example, a single collection, read-only content, etc.).
+- Proxies can provide higher-level behaviors and feature enrichment by composing multiple backing plugins and adapting requests/responses.
+- In practice, the Go implementation is expected to be the most feature-rich and is a likely home for these enriching proxies.
+
+See: `multi-language-implementations.md`.
+
 ## 1. Plugin Architecture & Communication
 
 **Decision**: Use OpenAPI with REST endpoints for plugin communication.

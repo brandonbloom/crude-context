@@ -19,6 +19,12 @@ This document describes conventions that should converge across Crude repos, plu
 - When repos interact across language boundaries, prefer the OpenAPI HTTP interface over importing internals from another repo.
 - Generated OpenAPI artifacts should be reproducible and not hand-edited.
 
+### Idiomatic internals + dependency injection
+
+- Server packages should expose idiomatic Domain/Collection/Element (or equivalent) abstractions for that language.
+- HTTP routing/adapters should depend on those abstractions via injection (a static single-domain configuration should be the easy path).
+- Optional features should be modeled idiomatically (small optional interfaces, optional members, capability checks), not by forcing every implementation to “fake” the full surface.
+
 ### Conformance mindset
 
 - Server implementations should be able to run the shared Hurl suite (via `crude-openapi test`) as part of `mise run test` where applicable.
@@ -61,4 +67,3 @@ Standardize when it reduces cross-repo friction:
 - How to run the shared conformance suite
 
 Avoid forced standardization when it fights an ecosystem’s norms (layout, build tool choice, package structure), as long as the task surface and protocol contract stay consistent.
-

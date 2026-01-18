@@ -3,12 +3,15 @@
 Short definitions for cross-repo terms. Prefer these meanings when writing docs or implementing features.
 
 - **Domain**: A scoped namespace representing a data source or application vocabulary (examples: github, os, debug).
+- **Universe**: A special “domain-like” root that can enumerate or union other domains (often keyed as `_universe` when exposed).
 - **Collection**: A named set of homogeneous elements within a domain.
 - **Element**: A keyed item within a collection.
 - **Key**: The identifier for an element within a collection (unique within that collection).
 - **Resource**: An HTTP-addressable entity (domain/collection/element/etc.).
 - **Content endpoint**: Endpoint that returns the natural representation of a collection/element; negotiated via `Accept`.
 - **Format**: A representation/media type for content; may be enumerated as resources.
+- **Format key**: A stable identifier used to select a format (often derived from a media type); preferred over passing raw `Accept` strings through core interfaces.
+- **Converter**: Transforms content from one format to another (often used by enriching proxies as well as by servers).
 - **Organizer**: A hierarchical navigation structure for UI or filesystem-like browsing.
 - **Ref string**: A compact string used by organizer entries to reference targets (example: `collection:alphabet`).
 - **Search**: Query API returning heterogeneous results with relevance scoring.
@@ -19,9 +22,9 @@ Short definitions for cross-repo terms. Prefer these meanings when writing docs 
 - **Meta-spec**: The higher-level type definitions in `crude-openapi/src/spec/*` used to generate the OpenAPI spec.
 - **Conformance suite**: The shared protocol-level regression tests (`crude-openapi/src/tests/hurl/*.hurl`).
 - **Trunk development**: Mainline development model; release/publishing policies may vary by ecosystem.
+- **Engine / Domain source**: A small injectable boundary that provides access to domains (e.g. list/get domain, get root domain), used by server adapters.
 
 Pointers:
 
 - Protocol contract summary: `docs/design/protocol-contract.md`
 - Conformance summary: `docs/design/conformance.md`
-
