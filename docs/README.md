@@ -6,6 +6,7 @@ Start here:
 
 - Architecture overview: `architecture.md`
 - How to maintain this context: `maintaining-context.md`
+- Versioning and stability: `versioning-and-stability.md`
 - Cross-repo tooling conventions: `tooling.md`
 - Ports, URIs, and env vars: `ports-and-uris.md`
 - Repo patterns and variations: `repo-patterns.md`

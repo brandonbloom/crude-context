@@ -39,5 +39,6 @@ These repos are expected to converge on a similar shape (e.g. `core/`, `client/`
 
 - Architecture overview: `docs/architecture.md`
 - Multi-language implementation philosophy: `docs/design/multi-language-implementations.md`
+- Versioning and stability: `docs/versioning-and-stability.md`
 - How to iterate on this repo’s docs: `docs/maintaining-context.md`
 - Current work plan for this repo: `PLAN.md`
