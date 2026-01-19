@@ -26,6 +26,10 @@ When working across repos, treat the generated spec + Hurl suite as the contract
   - Scoped: `/domains/{domain}/collections/{collection}/...`
   - Universal: `/collections/{collection}/...` and `/search`, `/organizer`, etc.
 
+## Reserved names
+
+This repo treats underscore-prefixed names (`_...`) as system-reserved to avoid collisions with user/backing keyspaces. One important example is the `_universe` domain key used by some implementations as a convenience sentinel for root/universal behavior.
+
 ## Paths and operations (high-level)
 
 The current spec is mostly read-only:
@@ -71,3 +75,12 @@ Some docs in `crude-docs` describe the broader vision (“CRUD engine”, proper
 1) `crude-openapi/build/spec.json` (what’s defined)
 2) `crude-openapi/src/tests/hurl/*.hurl` (what’s required by tests)
 3) Implementation docs per repo (`DEVELOPING.md`)
+
+## Navigation refs (organizer + search)
+
+Today the protocol uses plain strings for navigation-like pointers:
+
+- Organizer entries include a `ref` string.
+- Search results include a `ref` string.
+
+Clients should treat these as **navigation refs**: compact, context-resolved strings that may use scheme-like prefixes (e.g. `collection:`) or external URLs (`https:`). Avoid interpreting unknown refs heuristically.

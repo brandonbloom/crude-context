@@ -10,6 +10,12 @@ Domain → Collection → Element
 - A collection is a homogeneous set of elements within a domain.
 - An element is a keyed item within a collection.
 
+## Reflection and meta
+
+- `_...` names are system-reserved to avoid collisions with user/backing keyspaces.
+- `_universe` is a system-reserved “universe” domain that represents what a server knows (domains, collections, cross-domain search, etc.).
+- `crude` is an installable reflective domain intended to expose Crude’s own internals (admin-oriented by default).
+
 ## The HTTP surface (shape, not exhaustiveness)
 
 Discovery and navigation:
@@ -36,6 +42,7 @@ Navigation UI support:
 
 - Organizer is a hierarchical navigation structure suitable for sidebars, filesystem views, etc.
 - Organizer entries use `ref` strings (for example, `collection:alphabet`) to point at targets.
+- Organizer and search should converge on a shared notion of **navigation refs** (non-ambiguous, context-resolved).
 
 Search:
 
@@ -61,4 +68,3 @@ The shared Hurl suite exercises a required debug domain and a small set of behav
 - Content negotiation on debug collections
 
 See: `docs/design/conformance.md`
-

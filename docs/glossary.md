@@ -14,6 +14,7 @@ Short definitions for cross-repo terms. Prefer these meanings when writing docs 
 - **Converter**: Transforms content from one format to another (often used by enriching proxies as well as by servers).
 - **Organizer**: A hierarchical navigation structure for UI or filesystem-like browsing.
 - **Ref string**: A compact string used by organizer entries to reference targets (example: `collection:alphabet`).
+- **Navigation ref**: A ref string intended for navigation targets (organizer entries, search results, etc.); typically scheme-like and non-ambiguous.
 - **Search**: Query API returning heterogeneous results with relevance scoring.
 - **Filter**: Query parameter used to restrict element listings; semantics described in docs, syntax may vary by client.
 - **Cursor**: Opaque pagination token returned as `next` and passed back to continue listing.
@@ -23,6 +24,9 @@ Short definitions for cross-repo terms. Prefer these meanings when writing docs 
 - **Conformance suite**: The shared protocol-level regression tests (`crude-openapi/src/tests/hurl/*.hurl`).
 - **Trunk development**: Mainline development model; release/publishing policies may vary by ecosystem.
 - **Engine / Domain source**: A small injectable boundary that provides access to domains (e.g. list/get domain, get root domain), used by server adapters.
+- **System-reserved name**: An underscore-prefixed key/subresource (`_...`) reserved by the Crude system to avoid collisions with user/backing keyspaces.
+- **Lifted resource**: A convention (often via `.../_collection` or `.../_element`) that exposes a convenience-shaped endpoint through the generic collection/element/content shapes.
+- **Capability discovery**: Explicit, preflightable mechanism to discover supported operations/features, in addition to dynamic 404/405/unsupported outcomes.
 
 Pointers:
 

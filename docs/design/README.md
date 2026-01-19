@@ -7,3 +7,4 @@ Design notes for Crude. Some documents are aspirational; treat the OpenAPI spec 
 - Codegen workflows: `codegen-workflows.md`
 - Multi-language implementations: `multi-language-implementations.md`
 - Plugin system notes: `plugin-system.md`
+- Meta-circular reflection: `meta-circularity.md`

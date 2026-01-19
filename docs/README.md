@@ -11,5 +11,6 @@ Start here:
 - Ports, URIs, and env vars: `ports-and-uris.md`
 - Repo patterns and variations: `repo-patterns.md`
 - Dense concept map: `concept-map.md`
+- Concept index (timeless nouns): `concepts.md`
 - Glossary: `glossary.md`
 - Design notes: `design/README.md`
